@@ -1,18 +1,18 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: '我的技术博客', // 请修改为你的博客名称
-  author: '你的名字', // 请修改为你的名字
-  headerTitle: '我的博客', // 请修改为博客标题
-  description: '分享技术、思考与生活', // 请修改为你的博客描述
-  language: 'zh-CN', // 中文
-  theme: 'system', // system, dark or light
-  siteUrl: 'https://blog.yourdomain.com', // 请修改为你的自定义域名
-  siteRepo: 'https://github.com/yourusername/gitblog', // 请修改为你的GitHub仓库地址
+  title: 'Cofea的技术博客',
+  author: 'Cofea',
+  headerTitle: 'Cofea博客',
+  description: '分享技术、思考与生活',
+  language: 'zh-CN',
+  theme: 'system',
+  siteUrl: 'https://cofea.github.io/gitblog',
+  siteRepo: 'https://github.com/Cofea/gitblog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   mastodon: '', // 可选：你的Mastodon链接
-  email: 'your@email.com', // 请修改为你的邮箱
-  github: 'https://github.com/yourusername', // 请修改为你的GitHub主页
+  email: 'cofea@example.com',
+  github: 'https://github.com/Cofea',
   x: '', // 可选：你的X(Twitter)链接
   // twitter: 'https://twitter.com/Twitter',
   facebook: '', // 可选：你的Facebook链接

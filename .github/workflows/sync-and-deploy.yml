@@ -49,6 +49,7 @@ jobs:
         env:
           EXPORT: 'true'
           UNOPTIMIZED: 'true'
+          BASE_PATH: '/gitblog'
         run: npm run build:static
 
       - name: 添加.nojekyll文件
