@@ -1,0 +1,73 @@
+name: Sync Notion & Deploy Blog
+
+on:
+  # 定时触发: 每天北京时间凌晨2点 (UTC 18:00)
+  schedule:
+    - cron: '0 18 * * *'
+
+  # 手动触发
+  workflow_dispatch:
+
+  # 代码推送时触发
+  push:
+    branches: [main, master]
+
+# 设置权限以部署到GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 只允许一个部署同时运行
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 从Notion同步文章
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: node scripts/sync-notion.js
+
+      - name: 构建Next.js静态站点
+        env:
+          EXPORT: 'true'
+          UNOPTIMIZED: 'true'
+        run: npm run build:static
+
+      - name: 添加.nojekyll文件
+        run: touch out/.nojekyll
+
+      - name: 配置GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: 上传构建产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - name: 部署到GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 输出部署结果
+        run: |
+          echo "✅ 部署成功!"
+          echo "🔗 访问地址: ${{ steps.deployment.outputs.page_url }}"

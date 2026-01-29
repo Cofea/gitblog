@@ -1,28 +1,28 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
-  language: 'en-us',
+  title: '我的技术博客', // 请修改为你的博客名称
+  author: '你的名字', // 请修改为你的名字
+  headerTitle: '我的博客', // 请修改为博客标题
+  description: '分享技术、思考与生活', // 请修改为你的博客描述
+  language: 'zh-CN', // 中文
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
-  siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
+  siteUrl: 'https://blog.yourdomain.com', // 请修改为你的自定义域名
+  siteRepo: 'https://github.com/yourusername/gitblog', // 请修改为你的GitHub仓库地址
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
-  mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
-  github: 'https://github.com',
-  x: 'https://twitter.com/x',
+  mastodon: '', // 可选：你的Mastodon链接
+  email: 'your@email.com', // 请修改为你的邮箱
+  github: 'https://github.com/yourusername', // 请修改为你的GitHub主页
+  x: '', // 可选：你的X(Twitter)链接
   // twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
-  linkedin: 'https://www.linkedin.com',
-  threads: 'https://www.threads.net',
-  instagram: 'https://www.instagram.com',
-  medium: 'https://medium.com',
-  bluesky: 'https://bsky.app/',
-  locale: 'en-US',
+  facebook: '', // 可选：你的Facebook链接
+  youtube: '', // 可选：你的YouTube链接
+  linkedin: '', // 可选：你的LinkedIn链接
+  threads: '', // 可选：你的Threads链接
+  instagram: '', // 可选：你的Instagram链接
+  medium: '', // 可选：你的Medium链接
+  bluesky: '', // 可选：你的Bluesky链接
+  locale: 'zh-CN',
   // set to true if you want a navbar fixed to the top
   stickyNav: false,
   analytics: {
@@ -81,7 +81,7 @@ const siteMetadata = {
       // example: https://giscus.app/themes/custom_example.css
       themeURL: '',
       // This corresponds to the `data-lang="en"` in giscus's configurations
-      lang: 'en',
+      lang: 'zh-CN', // 改为中文
     },
   },
   search: {

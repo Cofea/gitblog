@@ -9,7 +9,7 @@ const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is;
   style-src 'self' 'unsafe-inline';
-  img-src * blob: data:;
+  img-src * blob: data: https://www.notion.so https://*.amazonaws.com;
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
@@ -77,6 +77,18 @@ module.exports = () => {
         {
           protocol: 'https',
           hostname: 'picsum.photos',
+        },
+        {
+          protocol: 'https',
+          hostname: 'www.notion.so',
+        },
+        {
+          protocol: 'https',
+          hostname: 's3.us-west-2.amazonaws.com',
+        },
+        {
+          protocol: 'https',
+          hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
         },
       ],
       unoptimized,
