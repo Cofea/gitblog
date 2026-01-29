@@ -55,18 +55,20 @@ async function downloadImage(url, filename) {
     const protocol = url.startsWith('https') ? https : http
     const file = fs.createWriteStream(filepath)
 
-    protocol.get(url, (response) => {
-      response.pipe(file)
-      file.on('finish', () => {
-        file.close()
-        console.log(`图片下载成功: ${filename}`)
-        resolve(`/static/images/notion/${filename}`)
+    protocol
+      .get(url, (response) => {
+        response.pipe(file)
+        file.on('finish', () => {
+          file.close()
+          console.log(`图片下载成功: ${filename}`)
+          resolve(`/static/images/notion/${filename}`)
+        })
       })
-    }).on('error', (err) => {
-      fs.unlink(filepath, () => {}) // 删除不完整的文件
-      console.error(`图片下载失败: ${filename}`, err.message)
-      reject(err)
-    })
+      .on('error', (err) => {
+        fs.unlink(filepath, () => {}) // 删除不完整的文件
+        console.error(`图片下载失败: ${filename}`, err.message)
+        reject(err)
+      })
   })
 }
 
@@ -110,7 +112,7 @@ function extractPageProperties(page) {
   const publishDate = properties.PublishDate?.date?.start || new Date().toISOString()
 
   // 提取标签
-  const tags = properties.Tags?.multi_select?.map(tag => tag.name) || []
+  const tags = properties.Tags?.multi_select?.map((tag) => tag.name) || []
 
   // 提取摘要
   const summary = properties.Summary?.rich_text?.[0]?.plain_text || ''
@@ -169,10 +171,10 @@ async function processImagesInMarkdown(markdown, pageId) {
 
     imagePromises.push(
       downloadImage(imageUrl, filename)
-        .then(localPath => {
+        .then((localPath) => {
           processedMarkdown = processedMarkdown.replace(imageUrl, localPath)
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(`处理图片失败: ${imageUrl}`, err)
         })
     )
@@ -195,7 +197,7 @@ function generateFrontmatter(props, coverImagePath) {
     '---',
     `title: '${title.replace(/'/g, "''")}'`, // 转义单引号
     `date: '${formatDate(publishDate)}'`,
-    `tags: [${tags.map(tag => `'${tag}'`).join(', ')}]`,
+    `tags: [${tags.map((tag) => `'${tag}'`).join(', ')}]`,
     `draft: false`,
     `summary: '${summary.replace(/'/g, "''")}'`,
   ]
@@ -245,8 +247,9 @@ async function getPublishedPosts() {
  * @param {Object} page - Notion页面对象
  */
 async function convertPost(page) {
+  let props
   try {
-    const props = extractPageProperties(page)
+    props = extractPageProperties(page)
     console.log(`\n处理文章: ${props.title}`)
 
     // 获取页面内容并转换为Markdown
@@ -284,7 +287,8 @@ async function convertPost(page) {
 
     return { success: true, filename }
   } catch (error) {
-    console.error(`❌ 转换文章失败 (${props.title}):`, error.message)
+    const title = props?.title || '未知文章'
+    console.error(`❌ 转换文章失败 (${title}):`, error.message)
     return { success: false, error: error.message }
   }
 }
@@ -328,8 +332,8 @@ async function main() {
     }
 
     // 输出统计
-    const successful = results.filter(r => r.success).length
-    const failed = results.filter(r => !r.success).length
+    const successful = results.filter((r) => r.success).length
+    const failed = results.filter((r) => !r.success).length
 
     console.log('\n========================================')
     console.log('同步完成!')
@@ -339,11 +343,12 @@ async function main() {
 
     if (failed > 0) {
       console.log('\n失败的文章:')
-      results.filter(r => !r.success).forEach(r => {
-        console.log(`- ${r.error}`)
-      })
+      results
+        .filter((r) => !r.success)
+        .forEach((r) => {
+          console.log(`- ${r.error}`)
+        })
     }
-
   } catch (error) {
     console.error('\n❌ 同步过程中发生错误:', error.message)
     process.exit(1)
