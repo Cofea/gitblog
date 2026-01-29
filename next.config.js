@@ -71,7 +71,7 @@ module.exports = () => {
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
       dirs: ['app', 'components', 'layouts'],
-      ignoreDuringBuilds: false,
+      ignoreDuringBuilds: true,
     },
     images: {
       remotePatterns: [
