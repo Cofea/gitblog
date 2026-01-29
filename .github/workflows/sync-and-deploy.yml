@@ -34,11 +34,11 @@ jobs:
       - name: 设置Node.js环境
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: 安装依赖
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: 从Notion同步文章
         env:
